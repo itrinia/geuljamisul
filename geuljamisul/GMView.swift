@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct GMView: View {
-    let koreanAlphabets = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ",
-                           "ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ"]
+    let koreanAlphabets = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㅃ", "ㅉ", "ㄸ", "ㄲ", "ㅆ",
+                           "ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"]
     
     @State private var selectedCards: [String] = []
     @State private var pronunciation: String = ""
@@ -16,6 +16,7 @@ struct GMView: View {
     
     // Dictionary to map each combination of Korean alphabets to their corresponding syllables
     let syllableDictionary: [String: String] = [
+//      ===consonant-vowels
         "ㄱㅏ": "ga", "ㄴㅏ": "na", "ㄷㅏ": "da", "ㄹㅏ": "ra", "ㅁㅏ": "ma",
         "ㅂㅏ": "ba", "ㅅㅏ": "sa", "ㅇㅏ": "a", "ㅈㅏ": "ja", "ㅊㅏ": "cha",
         "ㅋㅏ": "ka", "ㅌㅏ": "ta", "ㅍㅏ": "pa", "ㅎㅏ": "ha", "ㄱㅑ": "gya",
@@ -42,6 +43,10 @@ struct GMView: View {
         "ㅕㅣ": "yeo", "ㅗㅣ": "o", "ㅛㅣ": "yo", "ㅜㅣ": "u", "ㅠㅣ": "yu",
         "ㅡㅣ": "eu", "ㅣㅣ": "i", "ㅂㅣ": "bi", "ㅅㅣ": "si",
         "ㅈㅣ": "ji", "ㅊㅣ": "chi", "ㅋㅣ": "ki", "ㅌㅣ": "ti", "ㅍㅣ": "pi", "ㅎㅣ": "hi",
+        "ㅃㅏ": "bba", "ㅃㅑ": "bbya", "ㅃㅓ": "bbeo", "ㅃㅕ": "bbyeo", "ㅃㅗ": "bbo",
+        "ㅃㅛ": "bbyo", "ㅃㅜ": "bbu", "ㅃㅠ": "bbyu", "ㅃㅡ": "bbeu", "ㅃㅣ": "bbi",
+        "ㅃㅐ": "bbae", "ㅃㅒ": "bbyae", "ㅃㅔ": "bbae", "ㅃㅖ": "bbyae",
+        
 //        ===consonant-vowels-consonant
         "ㄱㅏㄱ": "gag", "ㄴㅏㄴ": "nan", "ㄷㅏㄷ": "dad", "ㄹㅏㄹ": "ral", "ㅁㅏㅁ": "mam",
         "ㅂㅏㅂ": "bab", "ㅅㅏㅅ": "sas", "ㅇㅏㅇ": "ang", "ㅈㅏㅈ": "jaj", "ㅊㅏㅊ": "chach",
@@ -70,6 +75,10 @@ struct GMView: View {
         "ㅏㅣㄱ": "aig", "ㅑㅣㄴ": "yin", "ㅓㅣㄷ": "eod", "ㅕㅣㄹ": "yeol", "ㅗㅣㅁ": "oim",
         "ㅛㅣㅂ": "yib", "ㅜㅣㅅ": "uis", "ㅠㅣㅇ": "yung", "ㅡㅣㅈ": "uij", "ㅣㅣㅊ": "ich",
         "ㅂㅣㅋ": "bik", "ㅅㅣㅌ": "sit", "ㅈㅣㅍ": "jip", "ㅊㅣㅎ": "chih",
+        "ㅃㅏㅂ": "bbap", "ㅃㅑㅂ": "bbyap", "ㅃㅓㅂ": "bbeob", "ㅃㅕㅂ": "bbyeob", "ㅃㅗㅂ": "bbob",
+        "ㅃㅛㅂ": "bbyob", "ㅃㅜㅂ": "bub", "ㅃㅠㅂ": "bbyub", "ㅃㅡㅂ": "bbeub", "ㅃㅣㅂ": "bbib",
+        "ㅃㅐㅂ": "bbaeb", "ㅃㅒㅂ": "bbyaeb", "ㅃㅔㅂ": "bbaeb", "ㅃㅖㅂ": "bbyaeb",
+        
 // =====Consonant - Vowels - Vowels
         "ㄱㅏㅇㅡ": "gaweo", "ㄴㅏㅇㅡ": "nae", "ㄷㅏㅇㅡ": "deo", "ㄹㅏㅇㅡ": "rae", "ㅁㅏㅇㅡ": "mae",
         "ㅂㅏㅇㅡ": "bae", "ㅅㅏㅇㅡ": "seo", "ㅇㅏㅇㅡ": "aeng", "ㅈㅏㅇㅡ": "jae", "ㅊㅏㅇㅡ": "chae",
@@ -93,6 +102,10 @@ struct GMView: View {
         "ㄱㅠㅇㅡ": "gyui", "ㄴㅠㅇㅡ": "nyui", "ㄷㅠㅇㅡ": "dyui", "ㄹㅠㅇㅡ": "ryui", "ㅁㅠㅇㅡ": "myui", "ㅂㅠㅇㅡ": "byui",
         "ㅅㅠㅇㅡ": "syui", "ㅇㅠㅇㅡ": "yui", "ㅈㅠㅇㅡ": "jyui", "ㅊㅠㅇㅡ": "chyui", "ㅋㅠㅇㅡ": "kyui",
         "ㅌㅠㅇㅡ": "tyui", "ㅍㅠㅇㅡ": "pyui", "ㅎㅠㅇㅡ": "hyui",
+        "ㅃㅏㅏ": "bbaa", "ㅃㅑㅏ": "bbyaa", "ㅃㅓㅏ": "bbeoa", "ㅃㅕㅏ": "bbyeoa", "ㅃㅗㅏ": "bboaa",
+        "ㅃㅛㅏ": "bbyoaa", "ㅃㅜㅏ": "bbuaa", "ㅃㅠㅏ": "bbyuaa", "ㅃㅡㅏ": "bbeuaa", "ㅃㅣㅏ": "bbiaa",
+        "ㅃㅐㅏ": "bbaae", "ㅃㅒㅏ": "bbyaae", "ㅃㅔㅏ": "bbaae", "ㅃㅖㅏ": "bbyaae",
+
 // === Consonant - Vowels - Consonant - Consonant
         "ㄱㅏㄹㄱ": "galk", "ㄴㅏㄹㄴ": "naln", "ㄷㅏㄹㄷ": "dald", "ㄹㅏㄹㅁ": "ralm", "ㅁㅏㄹㅇ": "mang",
         "ㅂㅏㄹㅅ": "bals", "ㅅㅏㄹㅎ": "sahh", "ㅇㅏㄹㄴ": "anrn", "ㅈㅏㄹㅅ": "jasl", "ㅊㅏㄹㄹ": "charl",
@@ -119,7 +132,17 @@ struct GMView: View {
         "ㅍㅠㄹㅍ": "pyulp", "ㅎㅠㄹㅎ": "hyulh", "ㅏㅣㄹㄱ": "ailg", "ㅑㅣㄹㄴ": "yiln", "ㅓㅣㄹㄷ": "eold",
         "ㅕㅣㄹㅇ": "yeor", "ㅗㅣㄹㅁ": "oim", "ㅛㅣㄹㅎ": "yihh", "ㅜㅣㄹㅁ": "uim", "ㅠㅣㄹㄷ": "yuid",
         "ㅡㅣㄹㄱ": "uilg", "ㅣㅣㄹㄹ": "ill", "ㅂㅣㄹㄹ": "bill", "ㅅㅣㄹㄱ": "silg", "ㅈㅣㄹㄹ": "jill",
-        "ㅊㅣㄹㄹ": "chill", "ㅋㅣㄹㄱ": "kilg", "ㅌㅣㄹㄷ": "tild", "ㅍㅣㄹㄹ": "pill", "ㅎㅣㄹㄹ": "hill"
+        "ㅊㅣㄹㄹ": "chill", "ㅋㅣㄹㄱ": "kilg", "ㅌㅣㄹㄷ": "tild", "ㅍㅣㄹㄹ": "pill", "ㅎㅣㄹㄹ": "hill",
+        
+//      ===consonant-vowels-vowels-consonant
+        "ㅃㅏㅏㅂ": "bbaap", "ㅃㅑㅏㅂ": "bbyaap", "ㅃㅓㅏㅂ": "bbeoap", "ㅃㅕㅏㅂ": "bbyeoap", "ㅃㅗㅏㅂ": "bboap",
+        "ㅃㅛㅏㅂ": "bbyoap", "ㅃㅜㅏㅂ": "bbuap", "ㅃㅠㅏㅂ": "bbyuap", "ㅃㅡㅏㅂ": "bbeuap", "ㅃㅣㅏㅂ": "bbiap",
+        "ㅃㅐㅏㅂ": "bbaeap", "ㅃㅒㅏㅂ": "bbyaeap", "ㅃㅔㅏㅂ": "bbaeap", "ㅃㅖㅏㅂ": "bbyaeap",
+        
+//      ===consonant-vowels-vowels-consonant-consonant
+        "ㅃㅏㅇㅇㅂ": "bbangb", "ㅃㅑㅇㅇㅂ": "bbyangb", "ㅃㅓㅇㅇㅂ": "bbeongb", "ㅃㅕㅇㅇㅂ": "bbyeongb", "ㅃㅗㅇㅇㅂ": "bbongb",
+        "ㅃㅛㅇㅇㅂ": "bbyongb", "ㅃㅜㅇㅇㅂ": "bbungb", "ㅃㅠㅇㅇㅂ": "bbyungb", "ㅃㅡㅇㅇㅂ": "bbeungb", "ㅃㅣㅇㅇㅂ": "bbingb",
+        "ㅃㅐㅇㅇㅂ": "bbaengb", "ㅃㅒㅇㅇㅂ": "bbyaengb", "ㅃㅔㅇㅇㅂ": "bbaengb", "ㅃㅖㅇㅇㅂ": "bbyaengb",
     ]
 
     var body: some View {
@@ -127,7 +150,7 @@ struct GMView: View {
             HangeulCombinationView(hangeulCombination: $hangeulCombination)
             PronunciationView(pronunciation: $pronunciation)
                         ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(), count: 4)) {
+                LazyVGrid(columns: Array(repeating: GridItem(), count: 5)) {
                     ForEach(koreanAlphabets, id: \.self) { alphabet in
                         Button(action: {
                             toggleSelection(alphabet)
