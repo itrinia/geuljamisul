@@ -47,7 +47,7 @@ struct GMView: View {
         "ㅃㅛ": "bbyo", "ㅃㅜ": "bbu", "ㅃㅠ": "bbyu", "ㅃㅡ": "bbeu", "ㅃㅣ": "bbi",
         "ㅃㅐ": "bbae", "ㅃㅒ": "bbyae", "ㅃㅔ": "bbae", "ㅃㅖ": "bbyae",
         
-//        ===consonant-vowels-consonant
+//      ===consonant-vowels-consonant
         "ㄱㅏㄱ": "gag", "ㄴㅏㄴ": "nan", "ㄷㅏㄷ": "dad", "ㄹㅏㄹ": "ral", "ㅁㅏㅁ": "mam",
         "ㅂㅏㅂ": "bab", "ㅅㅏㅅ": "sas", "ㅇㅏㅇ": "ang", "ㅈㅏㅈ": "jaj", "ㅊㅏㅊ": "chach",
         "ㅋㅏㅋ": "kak", "ㅌㅏㅌ": "tat", "ㅍㅏㅍ": "pap", "ㅎㅏㅎ": "hah",
@@ -79,7 +79,7 @@ struct GMView: View {
         "ㅃㅛㅂ": "bbyob", "ㅃㅜㅂ": "bub", "ㅃㅠㅂ": "bbyub", "ㅃㅡㅂ": "bbeub", "ㅃㅣㅂ": "bbib",
         "ㅃㅐㅂ": "bbaeb", "ㅃㅒㅂ": "bbyaeb", "ㅃㅔㅂ": "bbaeb", "ㅃㅖㅂ": "bbyaeb",
         
-// =====Consonant - Vowels - Vowels
+        // ===Consonant - Vowels - Vowels
         "ㄱㅏㅇㅡ": "gaweo", "ㄴㅏㅇㅡ": "nae", "ㄷㅏㅇㅡ": "deo", "ㄹㅏㅇㅡ": "rae", "ㅁㅏㅇㅡ": "mae",
         "ㅂㅏㅇㅡ": "bae", "ㅅㅏㅇㅡ": "seo", "ㅇㅏㅇㅡ": "aeng", "ㅈㅏㅇㅡ": "jae", "ㅊㅏㅇㅡ": "chae",
         "ㅋㅏㅇㅡ": "kae", "ㅌㅏㅇㅡ": "tae", "ㅍㅏㅇㅡ": "pae", "ㅎㅏㅇㅡ": "hae", "ㄱㅑㅇㅡ": "gyawi",
@@ -105,8 +105,8 @@ struct GMView: View {
         "ㅃㅏㅏ": "bbaa", "ㅃㅑㅏ": "bbyaa", "ㅃㅓㅏ": "bbeoa", "ㅃㅕㅏ": "bbyeoa", "ㅃㅗㅏ": "bboaa",
         "ㅃㅛㅏ": "bbyoaa", "ㅃㅜㅏ": "bbuaa", "ㅃㅠㅏ": "bbyuaa", "ㅃㅡㅏ": "bbeuaa", "ㅃㅣㅏ": "bbiaa",
         "ㅃㅐㅏ": "bbaae", "ㅃㅒㅏ": "bbyaae", "ㅃㅔㅏ": "bbaae", "ㅃㅖㅏ": "bbyaae",
-
-// === Consonant - Vowels - Consonant - Consonant
+        
+        // === Consonant - Vowels - Consonant - Consonant
         "ㄱㅏㄹㄱ": "galk", "ㄴㅏㄹㄴ": "naln", "ㄷㅏㄹㄷ": "dald", "ㄹㅏㄹㅁ": "ralm", "ㅁㅏㄹㅇ": "mang",
         "ㅂㅏㄹㅅ": "bals", "ㅅㅏㄹㅎ": "sahh", "ㅇㅏㄹㄴ": "anrn", "ㅈㅏㄹㅅ": "jasl", "ㅊㅏㄹㄹ": "charl",
         "ㅋㅏㄹㄱ": "kalg", "ㅌㅏㄹㄷ": "tald", "ㅍㅏㄹㄱ": "palk", "ㅎㅏㄹㅋ": "halk", "ㄱㅑㄹㅂ": "gyalb",
@@ -134,22 +134,20 @@ struct GMView: View {
         "ㅡㅣㄹㄱ": "uilg", "ㅣㅣㄹㄹ": "ill", "ㅂㅣㄹㄹ": "bill", "ㅅㅣㄹㄱ": "silg", "ㅈㅣㄹㄹ": "jill",
         "ㅊㅣㄹㄹ": "chill", "ㅋㅣㄹㄱ": "kilg", "ㅌㅣㄹㄷ": "tild", "ㅍㅣㄹㄹ": "pill", "ㅎㅣㄹㄹ": "hill",
         
-//      ===consonant-vowels-vowels-consonant
+        //      ===consonant-vowels-vowels-consonant
         "ㅃㅏㅏㅂ": "bbaap", "ㅃㅑㅏㅂ": "bbyaap", "ㅃㅓㅏㅂ": "bbeoap", "ㅃㅕㅏㅂ": "bbyeoap", "ㅃㅗㅏㅂ": "bboap",
         "ㅃㅛㅏㅂ": "bbyoap", "ㅃㅜㅏㅂ": "bbuap", "ㅃㅠㅏㅂ": "bbyuap", "ㅃㅡㅏㅂ": "bbeuap", "ㅃㅣㅏㅂ": "bbiap",
         "ㅃㅐㅏㅂ": "bbaeap", "ㅃㅒㅏㅂ": "bbyaeap", "ㅃㅔㅏㅂ": "bbaeap", "ㅃㅖㅏㅂ": "bbyaeap",
         
-//      ===consonant-vowels-vowels-consonant-consonant
+        //      ===consonant-vowels-vowels-consonant-consonant
         "ㅃㅏㅇㅇㅂ": "bbangb", "ㅃㅑㅇㅇㅂ": "bbyangb", "ㅃㅓㅇㅇㅂ": "bbeongb", "ㅃㅕㅇㅇㅂ": "bbyeongb", "ㅃㅗㅇㅇㅂ": "bbongb",
         "ㅃㅛㅇㅇㅂ": "bbyongb", "ㅃㅜㅇㅇㅂ": "bbungb", "ㅃㅠㅇㅇㅂ": "bbyungb", "ㅃㅡㅇㅇㅂ": "bbeungb", "ㅃㅣㅇㅇㅂ": "bbingb",
         "ㅃㅐㅇㅇㅂ": "bbaengb", "ㅃㅒㅇㅇㅂ": "bbyaengb", "ㅃㅔㅇㅇㅂ": "bbaengb", "ㅃㅖㅇㅇㅂ": "bbyaengb",
     ]
-
+    
     var body: some View {
         VStack {
-            HangeulCombinationView(hangeulCombination: $hangeulCombination)
-            PronunciationView(pronunciation: $pronunciation)
-                        ScrollView {
+            ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(), count: 5)) {
                     ForEach(koreanAlphabets, id: \.self) { alphabet in
                         Button(action: {
@@ -174,57 +172,52 @@ struct GMView: View {
         }
     }
     
-    private func toggleSelection(_ alphabet: String) {
+    func toggleSelection(_ alphabet: String) {
         if let index = selectedCards.firstIndex(of: alphabet) {
             selectedCards.remove(at: index)
         } else {
             selectedCards.append(alphabet)
         }
-        updatePronunciation()
-        updateHangeulCombination()
     }
     
-    private func updatePronunciation() {
-        // Generate the pronunciation by looking up the combined syllable for each pair of selected alphabets
+    func updatePronunciation() {
         let combinedSyllables = stride(from: 0, to: selectedCards.count, by: 2).map { index in
             let firstAlphabet = selectedCards[index]
             let secondAlphabet = index + 1 < selectedCards.count ? selectedCards[index + 1] : ""
             return syllableDictionary[firstAlphabet + secondAlphabet] ?? ""
         }
-        // Astign the pronunciation to the state variable
         pronunciation = combinedSyllables.joined()
     }
     
-    private func updateHangeulCombination() {
-        // Generate the combined Hangeul characters based on selected alphabets
+    func updateHangeulCombination() {
         hangeulCombination = selectedCards.joined()
     }
     
-    private func clearSelection() {
+    func clearSelection() {
         selectedCards.removeAll()
         pronunciation = ""
         hangeulCombination = ""
     }
-}
-
-struct PronunciationView: View {
-    @Binding var pronunciation: String
     
-    var body: some View {
-        Text(pronunciation)
-            .font(.title)
-            .foregroundColor(.blue)
-            .padding()
+    struct PronunciationView: View {
+        @Binding var pronunciation: String
+        
+        var body: some View {
+            Text(pronunciation)
+                .font(.title)
+                .foregroundColor(.blue)
+                .padding()
+        }
     }
-}
-
-struct HangeulCombinationView: View {
-    @Binding var hangeulCombination: String
     
-    var body: some View {
-        Text(hangeulCombination)
-            .font(.title)
-            .foregroundColor(.green)
-            .padding()
+    struct HangeulCombinationView: View {
+        @Binding var hangeulCombination: String
+        
+        var body: some View {
+            Text(hangeulCombination)
+                .font(.title)
+                .foregroundColor(.green)
+                .padding()
+        }
     }
 }
