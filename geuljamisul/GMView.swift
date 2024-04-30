@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct GMView: View {
-    let koreanAlphabets = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㅃ", "ㅉ", "ㄸ", "ㄲ", "ㅆ",
-                           "ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"]
+    let consonantHangeul = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㅃ", "ㅉ", "ㄸ", "ㄲ", "ㅆ"]
+    let vowelsHangeul = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"]
     
     @State private var selectedCards: [String] = []
     @State private var pronunciation: String = ""
@@ -131,8 +131,8 @@ struct GMView: View {
         "ㅇㅠㄹㅇ": "yulm", "ㅈㅠㄹㅅ": "jyuls", "ㅊㅠㄹㅌ": "chyult", "ㅋㅠㄹㄱ": "kyulg", "ㅌㅠㄹㅌ": "tyult",
         "ㅍㅠㄹㅍ": "pyulp", "ㅎㅠㄹㅎ": "hyulh", "ㅏㅣㄹㄱ": "ailg", "ㅑㅣㄹㄴ": "yiln", "ㅓㅣㄹㄷ": "eold",
         "ㅕㅣㄹㅇ": "yeor", "ㅗㅣㄹㅁ": "oim", "ㅛㅣㄹㅎ": "yihh", "ㅜㅣㄹㅁ": "uim", "ㅠㅣㄹㄷ": "yuid",
-        "ㅡㅣㄹㄱ": "uilg", "ㅣㅣㄹㄹ": "ill", "ㅂㅣㄹㄹ": "bill", "ㅅㅣㄹㄱ": "silg", "ㅈㅣㄹㄹ": "jill",
-        "ㅊㅣㄹㄹ": "chill", "ㅋㅣㄹㄱ": "kilg", "ㅌㅣㄹㄷ": "tild", "ㅍㅣㄹㄹ": "pill", "ㅎㅣㄹㄹ": "hill",
+        "ㅡㅣㄹㄱ": "uilg", "ㅇㅣㄹㄹ": "il", "ㅂㅣㄹㄹ": "bil", "ㅅㅣㄹㄱ": "silg", "ㅈㅣㄹㄹ": "jil",
+        "ㅊㅣㄹㄹ": "chil", "ㅋㅣㄹㄱ": "kilg", "ㅌㅣㄹㄷ": "tild", "ㅍㅣㄹㄹ": "pil", "ㅎㅣㄹㄹ": "hil",
         
         //      ===consonant-vowels-vowels-consonant
         "ㅃㅏㅏㅂ": "bbaap", "ㅃㅑㅏㅂ": "bbyaap", "ㅃㅓㅏㅂ": "bbeoap", "ㅃㅕㅏㅂ": "bbyeoap", "ㅃㅗㅏㅂ": "bboap",
@@ -144,25 +144,48 @@ struct GMView: View {
         "ㅃㅛㅇㅇㅂ": "bbyongb", "ㅃㅜㅇㅇㅂ": "bbungb", "ㅃㅠㅇㅇㅂ": "bbyungb", "ㅃㅡㅇㅇㅂ": "bbeungb", "ㅃㅣㅇㅇㅂ": "bbingb",
         "ㅃㅐㅇㅇㅂ": "bbaengb", "ㅃㅒㅇㅇㅂ": "bbyaengb", "ㅃㅔㅇㅇㅂ": "bbaengb", "ㅃㅖㅇㅇㅂ": "bbyaengb",
     ]
+
     
     var body: some View {
         VStack {
+            HangeulCombinationView(hangeulCombination: $hangeulCombination)
+            PronunciationView(pronunciation: $pronunciation)
+            
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(), count: 5)) {
-                    ForEach(koreanAlphabets, id: \.self) { alphabet in
-                        Button(action: {
-                            toggleSelection(alphabet)
-                        }) {
-                            Text(alphabet)
-                                .padding()
-                                .foregroundColor(selectedCards.contains(alphabet) ? .gray : .black)
+                    LazyVGrid(columns: Array(repeating: GridItem(), count: 5), spacing: 10) {   
+                        ForEach(consonantHangeul, id: \.self) { alphabet in
+                            Button(action: {
+                                toggleSelection(alphabet)
+                                updateHangeulCombination()
+                                updatePronunciation()
+                            }) {
+                                Text(alphabet)
+                                    .padding(20)
+                                    .foregroundColor(selectedCards.contains(alphabet) ? .white : .black)
+                            }
+                            .background(selectedCards.contains(alphabet) ? Color.blue.opacity(0.5) : Color.blue.opacity(0.2))
+                            .cornerRadius(10)
+                            .padding(1)
                         }
-                        .background(selectedCards.contains(alphabet) ? Color.gray.opacity(0.3) : Color.clear)
-                        .cornerRadius(10)
-                        .padding()
+                        ForEach(vowelsHangeul, id: \.self) { alphabet in
+                            Button(action: {
+                                toggleSelection(alphabet)
+                                updateHangeulCombination()
+                                updatePronunciation()
+                            }) {
+                                Text(alphabet)
+                                    .padding(20)
+                                    .foregroundColor(selectedCards.contains(alphabet) ? .white : .black)
+                            }
+                            .background(selectedCards.contains(alphabet) ? Color.red.opacity(0.5) : Color.red.opacity(0.2))
+                            .cornerRadius(10)
+                            .padding(1)
+                        }
+
                     }
-                }
+                    .padding([.horizontal, .bottom], 25)
             }
+            
             Button(action: clearSelection) {
                 Text("Clear")
                     .padding()
@@ -179,6 +202,7 @@ struct GMView: View {
             selectedCards.append(alphabet)
         }
     }
+    
     
     func updatePronunciation() {
         let combinedSyllables = stride(from: 0, to: selectedCards.count, by: 2).map { index in
