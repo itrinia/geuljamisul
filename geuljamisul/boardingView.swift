@@ -27,7 +27,7 @@ struct boardingView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .padding(.vertical, 1)
-                        Text("5. You can find this rules again on help button in top right of the page.")
+                        Text("\n5. You can find this rules again on help button in top right of the page.")
                         }
                         .padding([.horizontal, .bottom], 35)
                 }
