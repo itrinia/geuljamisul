@@ -13,6 +13,7 @@ struct GMView: View {
     @State private var selectedCards: [String] = []
     @State private var pronunciation: String = ""
     @State private var hangeulCombination: String = ""
+    @State private var isInfoViewPresented = false
     
 //    Dictionary to map each combination of Korean alphabets to their corresponding syllables and pronunciations
     let syllableDictionary: [String: (hangeul: String, pronunciation: String)] = [
@@ -57,50 +58,80 @@ struct GMView: View {
         "ㅅㅗㅐ": ("쇄", "swae"), "ㅅㅗㅣ": ("쇠", "soi"), "ㅅㅛ": ("쇼", "syo"), "ㅅㅜ": ("수", "su"), "ㅅㅜㅓ": ("숴", "swo"),
         "ㅅㅜㅔ": ("쉐", "soe"), "ㅅㅜㅣ": ("쉬", "swi"), "ㅅㅠ": ("슈", "syu"), "ㅅㅡ": ("스", "seu"), "ㅅㅡㅣ": ("싀", "sui"),
         "ㅅㅣ": ("시", "si"),
-//not checked
+        
         "ㅇㅏ": ("아", "a"), "ㅇㅐ": ("애", "ae"), "ㅇㅑ": ("야", "ya"), "ㅇㅒ": ("얘", "yae"), "ㅇㅓ": ("어", "eo"),
         "ㅇㅔ": ("에", "e"), "ㅇㅕ": ("여", "yeo"), "ㅇㅖ": ("예", "ye"), "ㅇㅗ": ("오", "o"), "ㅇㅗㅏ": ("와", "wa"),
-        "ㅇㅗㅐ": ("왜", "wae"), "ㅇㅗㅣ": ("외", "oe"), "ㅇㅛ": ("요", "yo"), "ㅇㅜ": ("우", "u"), "ㅇㅜㅓ": ("워", "woe"),
+        "ㅇㅗㅐ": ("왜", "wae"), "ㅇㅗㅣ": ("외", "oi"), "ㅇㅛ": ("요", "yo"), "ㅇㅜ": ("우", "u"), "ㅇㅜㅓ": ("워", "wo"),
         "ㅇㅜㅔ": ("웨", "we"), "ㅇㅜㅣ": ("위", "wi"), "ㅇㅠ": ("유", "yu"), "ㅇㅡ": ("으", "eu"), "ㅇㅡㅣ": ("의", "ui"),
         "ㅇㅣ": ("이", "i"),
 
         "ㅈㅏ": ("자", "ja"), "ㅈㅐ": ("재", "jae"), "ㅈㅑ": ("쟈", "jya"), "ㅈㅒ": ("쟤", "jyae"), "ㅈㅓ": ("저", "jeo"),
-        "ㅈㅔ": ("제", "je"), "ㅈㅕ": ("져", "jyeo"), "ㅈㅖ": ("졔", "jye"), "ㅈㅗ": ("조", "jo"), "ㅈㅗㅏ": ("좨", "jwa"),
-        "ㅈㅗㅐ": ("좼", "jwae"), "ㅈㅗㅣ": ("죄", "joe"), "ㅈㅛ": ("죠", "jyo"), "ㅈㅜ": ("주", "ju"), "ㅈㅜㅓ": ("쥐", "jwi"),
-        "ㅈㅜㅔ": ("줘", "jwe"), "ㅈㅜㅣ": ("쥬", "jyu"), "ㅈㅠ": ("쥐", "jwi"), "ㅈㅡ": ("즈", "jeu"), "ㅈㅡㅣ": ("줘", "jwe"),
+        "ㅈㅔ": ("제", "je"), "ㅈㅕ": ("져", "jyeo"), "ㅈㅖ": ("졔", "jye"), "ㅈㅗ": ("조", "jo"), "ㅈㅗㅏ": ("좌", "jwa"),
+        "ㅈㅗㅐ": ("좨", "jwae"), "ㅈㅗㅣ": ("죄", "joi"), "ㅈㅛ": ("죠", "jyo"), "ㅈㅜ": ("주", "ju"), "ㅈㅜㅓ": ("쥐", "jwi"),
+        "ㅈㅜㅔ": ("줴", "jwe"), "ㅈㅠ": ("쥬", "jyu"), "ㅈㅜㅣ": ("쥐", "jwi"), "ㅈㅡ": ("즈", "jeu"), "ㅈㅡㅣ": ("즤", "jui"),
         "ㅈㅣ": ("지", "ji"),
 
-        "ㅊㅏ": ("차", "cha"), "ㅊㅐ": ("채", "chae"), "ㅊㅑ": ("챠", "chya"), "ㅊㅒ": ("채", "chae"), "ㅊㅓ": ("처", "cheo"),
+        "ㅊㅏ": ("차", "cha"), "ㅊㅐ": ("채", "chae"), "ㅊㅑ": ("챠", "chya"), "ㅊㅒ": ("챼", "chyae"), "ㅊㅓ": ("처", "cheo"),
         "ㅊㅔ": ("체", "che"), "ㅊㅕ": ("쳐", "chyeo"), "ㅊㅖ": ("쳬", "chye"), "ㅊㅗ": ("초", "cho"), "ㅊㅗㅏ": ("촤", "chwa"),
-        "ㅊㅗㅐ": ("촼", "chwae"), "ㅊㅗㅣ": ("쵸", "choe"), "ㅊㅛ": ("쵸", "chyo"), "ㅊㅜ": ("추", "chu"), "ㅊㅜㅓ": ("춰", "chwoe"),
-        "ㅊㅜㅔ": ("춰", "chwe"), "ㅊㅜㅣ": ("취", "chwi"), "ㅊㅠ": ("취", "chwi"), "ㅊㅡ": ("츄", "chyu"), "ㅊㅡㅣ": ("취", "chwi"),
+        "ㅊㅗㅐ": ("쵀", "chwae"), "ㅊㅗㅣ": ("최", "choi"), "ㅊㅛ": ("쵸", "chyo"), "ㅊㅜ": ("추", "chu"), "ㅊㅜㅓ": ("춰", "chwo"),
+        "ㅊㅜㅔ": ("췌", "chwe"), "ㅊㅜㅣ": ("취", "chwi"), "ㅊㅠ": ("츄", "chyu"), "ㅊㅡ": ("츠", "cheu"), "ㅊㅡㅣ": ("츼", "cheui"),
         "ㅊㅣ": ("치", "chi"),
 
-        "ㅋㅏ": ("카", "ka"), "ㅋㅐ": ("캐", "kae"), "ㅋㅑ": ("캬", "kya"), "ㅋㅒ": ("케", "kyae"), "ㅋㅓ": ("커", "keo"),
-        "ㅋㅔ": ("켜", "ke"), "ㅋㅕ": ("켸", "kyeo"), "ㅋㅖ": ("켜", "kye"), "ㅋㅗ": ("코", "ko"), "ㅋㅗㅏ": ("콰", "kwa"),
-        "ㅋㅗㅐ": ("콰", "kwae"), "ㅋㅗㅣ": ("쾨", "koe"), "ㅋㅛ": ("쿄", "kyo"), "ㅋㅜ": ("쿠", "ku"), "ㅋㅜㅓ": ("쾌", "kwoe"),
-        "ㅋㅜㅔ": ("쾨", "kwoe"), "ㅋㅜㅣ": ("쿼", "kwie"), "ㅋㅠ": ("큐", "kyu"), "ㅋㅡ": ("크", "keu"), "ㅋㅡㅣ": ("큐", "kyu"),
-        "ㅋㅣ": ("키", "ki"),
+        "ㅋㅏ": ("카", "kha"), "ㅋㅐ": ("캐", "khae"), "ㅋㅑ": ("캬", "khya"), "ㅋㅒ": ("케", "khyae"), "ㅋㅓ": ("커", "kheo"),
+        "ㅋㅔ": ("켜", "khe"), "ㅋㅕ": ("켜", "khyeo"), "ㅋㅖ": ("켸", "khye"), "ㅋㅗ": ("코", "kho"), "ㅋㅗㅏ": ("콰", "khwa"),
+        "ㅋㅗㅐ": ("쾌", "khwae"), "ㅋㅗㅣ": ("쾨", "khoe"), "ㅋㅛ": ("쿄", "khyo"), "ㅋㅜ": ("쿠", "khu"), "ㅋㅜㅓ": ("쿼", "khwo"),
+        "ㅋㅜㅔ": ("퀘", "khwoe"), "ㅋㅜㅣ": ("퀴", "khwi"), "ㅋㅠ": ("큐", "khyu"), "ㅋㅡ": ("크", "kheu"), "ㅋㅡㅣ": ("킈", "kheui"),
+        "ㅋㅣ": ("키", "khi"),
 
-        "ㅌㅏ": ("타", "ta"), "ㅌㅐ": ("태", "tae"), "ㅌㅑ": ("탸", "tyae"), "ㅌㅒ": ("텨", "tyae"), "ㅌㅓ": ("터", "teo"),
-        "ㅌㅔ": ("테", "te"), "ㅌㅕ": ("텨", "tyeo"), "ㅌㅖ": ("텨", "tye"), "ㅌㅗ": ("토", "to"), "ㅌㅗㅏ": ("퇴", "twae"),
-        "ㅌㅗㅐ": ("퇘", "twae"), "ㅌㅗㅣ": ("퇴", "toe"), "ㅌㅛ": ("툐", "tyo"), "ㅌㅜ": ("투", "tu"), "ㅌㅜㅓ": ("퉤", "twoe"),
-        "ㅌㅜㅔ": ("튀", "twae"), "ㅌㅜㅣ": ("튜", "tyu"), "ㅌㅠ": ("투", "tu"), "ㅌㅡ": ("트", "teu"), "ㅌㅡㅣ": ("튀", "twi"),
-        "ㅌㅣ": ("티", "ti"),
+        "ㅌㅏ": ("타", "tha"), "ㅌㅐ": ("태", "thae"), "ㅌㅑ": ("탸", "thya"), "ㅌㅒ": ("턔", "thyae"), "ㅌㅓ": ("터", "theo"),
+        "ㅌㅔ": ("테", "the"), "ㅌㅕ": ("텨", "thyeo"), "ㅌㅖ": ("톄", "thye"), "ㅌㅗ": ("토", "tho"), "ㅌㅗㅏ": ("톼", "thwa"),
+        "ㅌㅗㅐ": ("퇘", "thwae"), "ㅌㅗㅣ": ("퇴", "thoe"), "ㅌㅛ": ("툐", "thyo"), "ㅌㅜ": ("투", "thu"), "ㅌㅜㅓ": ("퉈", "thwo"),
+        "ㅌㅜㅔ": ("퉤", "thwoe"), "ㅌㅜㅣ": ("튀", "thwi"), "ㅌㅠ": ("튜", "thyu"), "ㅌㅡ": ("트", "theu"), "ㅌㅡㅣ": ("틔", "theui"),
+        "ㅌㅣ": ("티", "thi"),
 
-        "ㅍㅏ": ("파", "pa"), "ㅍㅐ": ("패", "pae"), "ㅍㅑ": ("퍄", "pyae"), "ㅍㅒ": ("페", "pyae"), "ㅍㅓ": ("퍼", "peo"),
-        "ㅍㅔ": ("페", "pe"), "ㅍㅕ": ("펴", "pyeo"), "ㅍㅖ": ("폐", "pye"), "ㅍㅗ": ("포", "po"), "ㅍㅗㅏ": ("퐈", "pwae"),
-        "ㅍㅗㅐ": ("풔", "pwae"), "ㅍㅗㅣ": ("푀", "poe"), "ㅍㅛ": ("표", "pyo"), "ㅍㅜ": ("푸", "pu"), "ㅍㅜㅓ": ("풰", "pwoe"),
-        "ㅍㅜㅔ": ("퓌", "pwe"), "ㅍㅜㅣ": ("퓨", "pyu"), "ㅍㅠ": ("퓨", "pyu"), "ㅍㅡ": ("프", "peu"), "ㅍㅡㅣ": ("퓌", "pyu"),
+        "ㅍㅏ": ("파", "pha"), "ㅍㅐ": ("패", "phae"), "ㅍㅑ": ("퍄", "phya"), "ㅍㅒ": ("퍠", "phyae"), "ㅍㅓ": ("퍼", "pheo"),
+        "ㅍㅔ": ("페", "phe"), "ㅍㅕ": ("펴", "phyeo"), "ㅍㅖ": ("폐", "phye"), "ㅍㅗ": ("포", "pho"), "ㅍㅗㅏ": ("퐈", "phwa"),
+        "ㅍㅗㅐ": ("퐤", "phwae"), "ㅍㅗㅣ": ("푀", "phoe"), "ㅍㅛ": ("표", "phyo"), "ㅍㅜ": ("푸", "phu"), "ㅍㅜㅓ": ("풔", "phwoe"),
+        "ㅍㅜㅔ": ("풰", "phwe"), "ㅍㅜㅣ": ("퓌", "phwi"), "ㅍㅠ": ("퓨", "phyu"), "ㅍㅡ": ("프", "pheu"), "ㅍㅡㅣ": ("픠", "phyui"),
         "ㅍㅣ": ("피", "pi"),
 
-        "ㅎㅏ": ("하", "ha"), "ㅎㅐ": ("해", "hae"), "ㅎㅑ": ("햐", "hya"), "ㅎㅒ": ("혜", "hyae"), "ㅎㅓ": ("허", "heo"),
+        "ㅎㅏ": ("하", "ha"), "ㅎㅐ": ("해", "hae"), "ㅎㅑ": ("햐", "hya"), "ㅎㅒ": ("햬", "hyae"), "ㅎㅓ": ("허", "heo"),
         "ㅎㅔ": ("헤", "he"), "ㅎㅕ": ("혀", "hyeo"), "ㅎㅖ": ("혜", "hye"), "ㅎㅗ": ("호", "ho"), "ㅎㅗㅏ": ("화", "hwa"),
-        "ㅎㅗㅐ": ("회", "hwae"), "ㅎㅗㅣ": ("회", "hoe"), "ㅎㅛ": ("효", "hyo"), "ㅎㅜ": ("후", "hu"), "ㅎㅜㅓ": ("훼", "hwoe"),
-        "ㅎㅜㅔ": ("회", "hwe"), "ㅎㅜㅣ": ("휘", "hwi"), "ㅎㅠ": ("휴", "hyu"), "ㅎㅡ": ("흐", "heu"), "ㅎㅡㅣ": ("휴", "hyu"),
+        "ㅎㅗㅐ": ("홰", "hwae"), "ㅎㅗㅣ": ("회", "hoe"), "ㅎㅛ": ("효", "hyo"), "ㅎㅜ": ("후", "hu"), "ㅎㅜㅓ": ("훠", "hwo"),
+        "ㅎㅜㅔ": ("훼", "hwe"), "ㅎㅜㅣ": ("휘", "hwi"), "ㅎㅠ": ("휴", "hyu"), "ㅎㅡ": ("흐", "heu"), "ㅎㅡㅣ": ("희", "hui"),
         "ㅎㅣ": ("히", "hi"),
+        
+        "ㅃㅏ": ("빠", "bba"), "ㅃㅐ": ("빼", "bbae"), "ㅃㅑ": ("뺘", "bbya"), "ㅃㅒ": ("뺴", "bbyae"), "ㅃㅓ": ("뻐", "bbeo"),
+        "ㅃㅔ": ("뻬", "bbe"), "ㅃㅕ": ("뼈", "bbye"), "ㅃㅖ": ("뼤", "bbye"), "ㅃㅗ": ("뽀", "bbo"), "ㅃㅗㅏ": ("뽜", "bbwa"),
+        "ㅃㅗㅐ": ("뿨", "bbwae"), "ㅃㅗㅣ": ("뾰", "bboe"), "ㅃㅛ": ("뿌", "bbyo"), "ㅃㅜ": ("뿨", "bbu"), "ㅃㅜㅓ": ("뿌", "bbwoe"),
+        "ㅃㅜㅔ": ("쀼", "bbwe"), "ㅃㅜㅣ": ("뿌", "bbwi"), "ㅃㅠ": ("뿌", "bbyu"), "ㅃㅡ": ("쁘", "bbeu"), "ㅃㅡㅣ": ("쁘", "bbeu"),
+        "ㅃㅣ": ("삐", "bbi"),
 
-        // Add more combinations if needed
+        "ㅉㅏ": ("짜", "jja"), "ㅉㅐ": ("쟤", "jjae"), "ㅉㅑ": ("쨔", "jjya"), "ㅉㅒ": ("쟤", "jjae"), "ㅉㅓ": ("쩌", "jjeo"),
+        "ㅉㅔ": ("쩨", "jje"), "ㅉㅕ": ("쨰", "jjye"), "ㅉㅖ": ("쩨", "jjye"), "ㅉㅗ": ("쪼", "jjo"), "ㅉㅗㅏ": ("쪼", "jjwa"),
+        "ㅉㅗㅐ": ("쮸", "jjwae"), "ㅉㅗㅣ": ("쮸", "jjoe"), "ㅉㅛ": ("쮸", "jjyo"), "ㅉㅜ": ("쭈", "jju"), "ㅉㅜㅓ": ("쮜", "jjwoe"),
+        "ㅉㅜㅔ": ("쮸", "jjwe"), "ㅉㅜㅣ": ("쭤", "jjwi"), "ㅉㅠ": ("쭈", "jju"), "ㅉㅡ": ("쭤", "jjeu"), "ㅉㅡㅣ": ("쭤", "jjeu"),
+        "ㅉㅣ": ("찌", "jji"),
+
+        "ㄸㅏ": ("따", "dda"), "ㄸㅐ": ("때", "ddae"), "ㄸㅑ": ("땨", "ddya"), "ㄸㅒ": ("때", "ddae"), "ㄸㅓ": ("떠", "ddeo"),
+        "ㄸㅔ": ("떼", "dde"), "ㄸㅕ": ("뗘", "ddye"), "ㄸㅖ": ("떴", "ddye"), "ㄸㅗ": ("또", "ddo"), "ㄸㅗㅏ": ("똬", "ddwa"),
+        "ㄸㅗㅐ": ("뙈", "ddwae"), "ㄸㅗㅣ": ("뙤", "ddoe"), "ㄸㅛ": ("뚀", "ddyo"), "ㄸㅜ": ("뚜", "ddu"), "ㄸㅜㅓ": ("뚸", "ddwoe"),
+        "ㄸㅜㅔ": ("뚸", "ddwe"), "ㄸㅜㅣ": ("뜌", "ddwi"), "ㄸㅠ": ("뚸", "ddyu"), "ㄸㅡ": ("뜨", "ddeu"), "ㄸㅡㅣ": ("뜌", "ddwi"),
+        "ㄸㅣ": ("띠", "ddi"),
+
+        "ㄲㅏ": ("까", "kka"), "ㄲㅐ": ("개", "kkae"), "ㄲㅑ": ("꺄", "kkya"), "ㄲㅒ": ("개", "kkae"), "ㄲㅓ": ("꺼", "kkeo"),
+        "ㄲㅔ": ("께", "kke"), "ㄲㅕ": ("꼐", "kkye"), "ㄲㅖ": ("께", "kkye"), "ㄲㅗ": ("꼬", "kko"), "ㄲㅗㅏ": ("꽈", "kkwa"),
+        "ㄲㅗㅐ": ("꽤", "kkwae"), "ㄲㅗㅣ": ("꾀", "kkoe"), "ㄲㅛ": ("꾜", "kkyo"), "ㄲㅜ": ("꾸", "kku"), "ㄲㅜㅓ": ("꾀", "kkwoe"),
+        "ㄲㅜㅔ": ("꾸", "kkwe"), "ㄲㅜㅣ": ("뀨", "kkwi"), "ㄲㅠ": ("꾸", "kkyu"), "ㄲㅡ": ("뀌", "kkeu"), "ㄲㅡㅣ": ("뀨", "kkwi"),
+        "ㄲㅣ": ("끼", "kki"),
+
+        "ㅆㅏ": ("싸", "ssa"), "ㅆㅐ": ("새", "ssae"), "ㅆㅑ": ("쌰", "ssya"), "ㅆㅒ": ("새", "ssae"), "ㅆㅓ": ("서", "sseo"),
+        "ㅆㅔ": ("새", "sse"), "ㅆㅕ": ("셰", "ssye"), "ㅆㅖ": ("셰", "ssye"), "ㅆㅗ": ("소", "sso"), "ㅆㅗㅏ": ("쏘", "sswa"),
+        "ㅆㅗㅐ": ("쏴", "sswae"), "ㅆㅗㅣ": ("쏴", "ssoe"), "ㅆㅛ": ("쇼", "ssyo"), "ㅆㅜ": ("수", "ssu"), "ㅆㅜㅓ": ("쏴", "sswoe"),
+        "ㅆㅜㅔ": ("쑈", "sswe"), "ㅆㅜㅣ": ("쑤", "sswi"), "ㅆㅠ": ("쑤", "ssyu"), "ㅆㅡ": ("쓰", "sseu"), "ㅆㅡㅣ": ("쑤", "ssyu"),
+        "ㅆㅣ": ("씨", "ssi"),
+        
+        "ㅋㅋ": ("ㅋㅋ", "🤣🤣"), "ㅠㅠ": ("ㅠㅠ", "😭😭😭")
     ]
 
     
@@ -143,29 +174,47 @@ struct GMView: View {
             }
             .padding()
         }
+        .navigationBarTitle("") // Empty title to remove back button title
+        .navigationBarBackButtonHidden(true) // Hide the back button
+        .navigationBarItems(trailing:
+        Button(action: {
+            isInfoViewPresented.toggle()
+        }) {
+            Image(systemName: "info.circle")
+            }
+        )
+        .sheet(isPresented: $isInfoViewPresented) {
+            infoView() // Present InfoView modally
+        }
     }
     
     func updatePronunciation() {
-        let combinedSyllables = stride(from: 0, to: selectedCards.count, by: 2).map { index in
-            let firstAlphabet = selectedCards[index]
-            let secondAlphabet = index + 1 < selectedCards.count ? selectedCards[index + 1] : ""
-            return syllableDictionary[firstAlphabet + secondAlphabet]?.pronunciation ?? ""
-        }
-        pronunciation = combinedSyllables.joined()
-    }
-    
-    func updateHangeulCombination() {
-        var combinedSyllables = ""
+        var combinedSyllables = [String]()
         for index in stride(from: 0, to: selectedCards.count, by: 2) {
             let firstAlphabet = selectedCards[index]
             let secondAlphabet = index + 1 < selectedCards.count ? selectedCards[index + 1] : ""
-            if let syllable = syllableDictionary[firstAlphabet + secondAlphabet]?.hangeul {
-                combinedSyllables.append(syllable)
+            let combination = firstAlphabet + secondAlphabet
+            if let syllableInfo = syllableDictionary[combination] {
+                combinedSyllables.append(syllableInfo.pronunciation)
+            } else {
+                pronunciation = "Incorrect Combination"
+                return
             }
         }
-        hangeulCombination = combinedSyllables
+        pronunciation = combinedSyllables.joined()
     }
 
+    func updateHangeulCombination() {
+            var combinedSyllables = ""
+            for index in stride(from: 0, to: selectedCards.count, by: 2) {
+                let firstAlphabet = selectedCards[index]
+                let secondAlphabet = index + 1 < selectedCards.count ? selectedCards[index + 1] : ""
+                if let syllable = syllableDictionary[firstAlphabet + secondAlphabet]?.hangeul {
+                    combinedSyllables.append(syllable)
+                }
+            }
+            hangeulCombination = combinedSyllables
+    }
     
     func clearSelection() {
         selectedCards.removeAll()

@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-
 struct boardingView: View {
+    @State private var hasLaunchedBefore: Bool = false
+
     var body: some View {
-        NavigationView{
-            VStack{
+        NavigationView {
+            VStack {
                 Text("Welcome to\n 글자미술\n")
                     .font(.title)
                     .bold()
@@ -24,33 +25,37 @@ struct boardingView: View {
                         Text("3. The romanization only works if blue and red combined.\nYou can't combine blue-blue.\n")
                         Text("4. You can combine:")
                         Image("bluered")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(.vertical, 1)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(.vertical, 1)
                         Text("\n5. You can find this rules again on help button in top right of the page.")
-                        }
-                        .padding([.horizontal, .bottom], 35)
+                    }
+                    .padding([.horizontal, .bottom], 35)
                 }
                 Button(action: {
-                    let _ = GMView()
-                    
-                    }) {
-                        NavigationLink(destination: GMView()) {
-                            Text("Get Started!")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                        }
+                    // Set UserDefaults flag to indicate that the app has been launched
+                    UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+                    hasLaunchedBefore = true
+                }) {
+                    NavigationLink(destination: GMView()) {
+                        Text("Get Started!")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
                     }
-                    .padding()
-                    
+                }
+                .padding()
             }
         }
-        
+        .onAppear {
+            hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        }
+        .fullScreenCover(isPresented: $hasLaunchedBefore, content: GMView.init)
     }
 }
+
 
 #Preview {
     boardingView()

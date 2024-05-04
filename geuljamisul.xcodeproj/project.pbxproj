@@ -18,6 +18,7 @@
 		A3AB4EF62BD6BCEA00761AEA /* GMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB4EF42BD6BCEA00761AEA /* GMView.swift */; };
 		A3AB4EF72BD6BCEA00761AEA /* GMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AB4EF42BD6BCEA00761AEA /* GMView.swift */; };
 		A3FF3AD32BE31E9400002513 /* boardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF3AD22BE31E9400002513 /* boardingView.swift */; };
+		A3FF3AD72BE5FA6200002513 /* infoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF3AD62BE5FA6200002513 /* infoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		A3AB4EE32BD6962D00761AEA /* geuljamisulUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geuljamisulUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A3AB4EF42BD6BCEA00761AEA /* GMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMView.swift; sourceTree = "<group>"; };
 		A3FF3AD22BE31E9400002513 /* boardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boardingView.swift; sourceTree = "<group>"; };
+		A3FF3AD62BE5FA6200002513 /* infoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				A3FF3AD22BE31E9400002513 /* boardingView.swift */,
 				A3AB4ECA2BD6962D00761AEA /* Assets.xcassets */,
 				A3AB4ECC2BD6962D00761AEA /* Preview Content */,
+				A3FF3AD62BE5FA6200002513 /* infoView.swift */,
 			);
 			path = geuljamisul;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				A3AB4EF52BD6BCEA00761AEA /* GMView.swift in Sources */,
 				A3AB4EC92BD6962C00761AEA /* ContentView.swift in Sources */,
 				A3FF3AD32BE31E9400002513 /* boardingView.swift in Sources */,
+				A3FF3AD72BE5FA6200002513 /* infoView.swift in Sources */,
 				A3AB4EC72BD6962C00761AEA /* geuljamisulApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
